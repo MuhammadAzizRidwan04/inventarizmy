@@ -6,15 +6,21 @@ import javax.swing.table.DefaultTableModel;
 import Kelas.Barang;
 import Kelas.Vendor;
 import Kelas.Kategori;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class FrameBarang extends javax.swing.JPanel {
 
+    private boolean isTableSelection = false;
+
     public FrameBarang() {
         initComponents();
         loadTable();
         reset();
+
         comboBoxvendor();
         comboBoxkategori();
         AutoCompleteDecorator.decorate(cbVendor);
@@ -58,7 +64,7 @@ public class FrameBarang extends javax.swing.JPanel {
     }
 
     void reset() {
-        autoID();
+        // autoID();
         txtIDBarang.setEditable(true);
         txtNamaBarang.setText(null);
         txtMerk.setText(null);
@@ -103,16 +109,15 @@ public class FrameBarang extends javax.swing.JPanel {
 
     }
 
-    void autoID() {
-        try {
-            Barang brg = new Barang();
-            String id = brg.autoID(); // Memanggil method autoID() dari class Kategori
-            txtIDBarang.setText(id); // Set ID ke text field
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error saat membuat ID: " + e.getMessage());
-        }
-    }
-
+//    void autoID() {
+//        try {
+//            Barang brg = new Barang();
+//            String id = brg.autoID(); // Memanggil method autoID() dari class Kategori
+//            txtIDBarang.setText(id); // Set ID ke text field
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(this, "Error saat membuat ID: " + e.getMessage());
+//        }
+//    }
     // Aksi tombol Tambah
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -177,6 +182,18 @@ public class FrameBarang extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Jumlah");
+
+        cbVendor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbVendorActionPerformed(evt);
+            }
+        });
+
+        cbKategori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbKategoriActionPerformed(evt);
+            }
+        });
 
         cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Baru", "Rusak", "Lama" }));
 
@@ -397,43 +414,155 @@ public class FrameBarang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUbahActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+//        try {
+//            Barang brg = new Barang();
+//            brg.setId_barang(txtIDBarang.getText());
+//            brg.hapusBarang();
+//        } catch (SQLException sQLException) {
+//        }
+//
+//        reset();
+//        loadTable();
         try {
             Barang brg = new Barang();
-            brg.setId_barang(txtIDBarang.getText());
+            brg.setId_barang(txtIDBarang.getText()); // ID yang berasal dari tabel
             brg.hapusBarang();
         } catch (SQLException sQLException) {
+            JOptionPane.showMessageDialog(this, "Terjadi Kesalahan: " + sQLException.getMessage());
         }
 
+        // Reset dan reload tabel setelah hapus
         reset();
         loadTable();
+
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void tblBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBarangMouseClicked
-        int baris = tblBarang.rowAtPoint(evt.getPoint());
-        String ID = tblBarang.getValueAt(baris, 0).toString();
-        String NamaBarang = tblBarang.getValueAt(baris, 1).toString();
-        String Merk = tblBarang.getValueAt(baris, 2).toString();
-        String Vendor = tblBarang.getValueAt(baris, 3).toString();
-        String Kategori = tblBarang.getValueAt(baris, 4).toString();
-        String Status = tblBarang.getValueAt(baris, 5).toString();
-        String Jenis = tblBarang.getValueAt(baris, 6).toString();
-        String Jumlah = tblBarang.getValueAt(baris, 7).toString();
+//        int baris = tblBarang.rowAtPoint(evt.getPoint());
+//        String ID = tblBarang.getValueAt(baris, 0).toString();
+//        String NamaBarang = tblBarang.getValueAt(baris, 1).toString();
+//        String Merk = tblBarang.getValueAt(baris, 2).toString();
+//        String Vendor = tblBarang.getValueAt(baris, 3).toString();
+//        String Kategori = tblBarang.getValueAt(baris, 4).toString();
+//        String Status = tblBarang.getValueAt(baris, 5).toString();
+//        String Jenis = tblBarang.getValueAt(baris, 6).toString();
+//        String Jumlah = tblBarang.getValueAt(baris, 7).toString();
+//
+//        txtIDBarang.setText(ID);
+//        //txtIDBarang.setEditable(false);
+//        txtNamaBarang.setText(NamaBarang);
+//        txtMerk.setText(Merk);
+//        cbVendor.setSelectedItem(Vendor);
+//        cbKategori.setSelectedItem(Kategori);
+//        cbStatus.setSelectedItem(Status);
+//        cbJenis.setSelectedItem(Jenis);
+//        txtJumlah.setText(Jumlah);
 
-        txtIDBarang.setText(ID);
-        txtIDBarang.setEditable(false);
-        txtNamaBarang.setText(NamaBarang);
-        txtMerk.setText(Merk);
-        cbVendor.setSelectedItem(Vendor);
-        cbKategori.setSelectedItem(Kategori);
-        cbStatus.setSelectedItem(Status);
-        cbJenis.setSelectedItem(Jenis);
-        txtJumlah.setText(Jumlah);
+        isTableSelection = true; // Mulai seleksi dari tabel
+        try {
+            int baris = tblBarang.rowAtPoint(evt.getPoint());
+            String ID = tblBarang.getValueAt(baris, 0).toString();
+            String NamaBarang = tblBarang.getValueAt(baris, 1).toString();
+            String Merk = tblBarang.getValueAt(baris, 2).toString();
+            String Vendor = tblBarang.getValueAt(baris, 3).toString();
+            String Kategori = tblBarang.getValueAt(baris, 4).toString();
+            String Status = tblBarang.getValueAt(baris, 5).toString();
+            String Jenis = tblBarang.getValueAt(baris, 6).toString();
+            String Jumlah = tblBarang.getValueAt(baris, 7).toString();
+
+            // Set data ke form
+            txtIDBarang.setText(ID);
+            txtIDBarang.setEditable(true);
+            txtNamaBarang.setText(NamaBarang);
+            txtMerk.setText(Merk);
+            cbVendor.setSelectedItem(Vendor);
+            cbKategori.setSelectedItem(Kategori);
+            cbStatus.setSelectedItem(Status);
+            cbJenis.setSelectedItem(Jenis);
+            txtJumlah.setText(Jumlah);
+
+        } finally {
+            isTableSelection = false; // Selesai seleksi dari tabel
+        }
+
 
     }//GEN-LAST:event_tblBarangMouseClicked
 
     private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
-        
+
     }//GEN-LAST:event_btnExcelActionPerformed
+
+    private void cbVendorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbVendorActionPerformed
+//        String vendorName = cbVendor.getSelectedItem() != null ? cbVendor.getSelectedItem().toString() : "";
+//        String kategoriName = cbKategori.getSelectedItem() != null ? cbKategori.getSelectedItem().toString() : "";
+//
+//        try {
+//            Barang barang = new Barang();
+//            if (vendorName.isEmpty() || kategoriName.isEmpty()) {
+//                txtIDBarang.setText("");
+//            } else {
+//
+//                String fullID = barang.generateFullID(vendorName, kategoriName);
+//                txtIDBarang.setText(fullID);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+        if (isTableSelection) {
+            return; // Jangan eksekusi jika dipicu oleh klik tabel
+        }
+        String vendorName = cbVendor.getSelectedItem() != null ? cbVendor.getSelectedItem().toString() : "";
+        String kategoriName = cbKategori.getSelectedItem() != null ? cbKategori.getSelectedItem().toString() : "";
+
+        try {
+            Barang barang = new Barang();
+            if (vendorName.isEmpty() || kategoriName.isEmpty()) {
+                txtIDBarang.setText("");
+            } else {
+                String fullID = barang.generateFullID(vendorName, kategoriName);
+                txtIDBarang.setText(fullID);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_cbVendorActionPerformed
+
+    private void cbKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKategoriActionPerformed
+//        String vendorName = cbVendor.getSelectedItem() != null ? cbVendor.getSelectedItem().toString() : "";
+//        String kategoriName = cbKategori.getSelectedItem() != null ? cbKategori.getSelectedItem().toString() : "";
+//
+//        try {
+//            Barang barang = new Barang();
+//            if (vendorName.isEmpty() || kategoriName.isEmpty()) {
+//                txtIDBarang.setText("");
+//            } else {
+//
+//                String fullID = barang.generateFullID(vendorName, kategoriName);
+//                txtIDBarang.setText(fullID);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+        if (isTableSelection) {
+            return; // Jangan eksekusi jika dipicu oleh klik tabel
+        }
+        String vendorName = cbVendor.getSelectedItem() != null ? cbVendor.getSelectedItem().toString() : "";
+        String kategoriName = cbKategori.getSelectedItem() != null ? cbKategori.getSelectedItem().toString() : "";
+
+        try {
+            Barang barang = new Barang();
+            if (vendorName.isEmpty() || kategoriName.isEmpty()) {
+                txtIDBarang.setText("");
+            } else {
+                String fullID = barang.generateFullID(vendorName, kategoriName);
+                txtIDBarang.setText(fullID);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }//GEN-LAST:event_cbKategoriActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -143,4 +143,12 @@ public class Kategori {
         }
         return newID;
     }
+
+    String getID(String kategoriName) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+   
+
+    
 }
