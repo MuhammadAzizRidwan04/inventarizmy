@@ -146,26 +146,25 @@ public class Barang {
 //        }
 //    }
     public void hapusBarang() {
-    query = "DELETE FROM barang WHERE id_barang = ?";
-    try {
-        System.out.println("ID Barang yang akan dihapus: " + id_barang); // Debug ID Barang
+        query = "DELETE FROM barang WHERE id_barang = ?";
+        try {
+            System.out.println("ID Barang yang akan dihapus: " + id_barang); // Debug ID Barang
 
-        ps = konek.prepareStatement(query);
-        ps.setString(1, id_barang);
+            ps = konek.prepareStatement(query);
+            ps.setString(1, id_barang);
 
-        int rowsAffected = ps.executeUpdate();
-        ps.close();
+            int rowsAffected = ps.executeUpdate();
+            ps.close();
 
-        if (rowsAffected > 0) {
-            JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
-        } else {
-            JOptionPane.showMessageDialog(null, "Data tidak ditemukan atau gagal dihapus");
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+            } else {
+                JOptionPane.showMessageDialog(null, "Data tidak ditemukan atau gagal dihapus");
+            }
+        } catch (SQLException sQLException) {
+            JOptionPane.showMessageDialog(null, "Data Gagal Dihapus: " + sQLException.getMessage());
         }
-    } catch (SQLException sQLException) {
-        JOptionPane.showMessageDialog(null, "Data Gagal Dihapus: " + sQLException.getMessage());
     }
-}
-
 
     public void ubahBarang() {
 
@@ -252,33 +251,56 @@ public class Barang {
     }
 
     public String generateAutoID() {
-    String autoID = "";
-    query = "SELECT MAX(id_barang) AS maxID FROM barang";
-    try {
-        st = konek.createStatement();
-        rs = st.executeQuery(query);
-        if (rs.next()) {
-            String maxID = rs.getString("maxID");
-            if (maxID == null) {
-                autoID = "001"; // ID pertama
-            } else {
-                int id = Integer.parseInt(maxID.substring(maxID.length() - 3)) + 1;
-                autoID = String.format("%03d", id);
+        String autoID = "";
+        query = "SELECT MAX(id_barang) AS maxID FROM barang";
+        try {
+            st = konek.createStatement();
+            rs = st.executeQuery(query);
+            if (rs.next()) {
+                String maxID = rs.getString("maxID");
+                if (maxID == null) {
+                    autoID = "001"; // ID pertama
+                } else {
+                    int id = Integer.parseInt(maxID.substring(maxID.length() - 3)) + 1;
+                    autoID = String.format("%03d", id);
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return autoID;
     }
-    return autoID;
-}
 
-public String generateFullID(String vendorName, String kategoriName) {
-    String vendorID = getVendorID(vendorName);
-    String kategoriID = getKategoriID(kategoriName);
-    String autoID = generateAutoID(); // Generate ID baru untuk penambahan barang
-    return vendorID + kategoriID + autoID;
-}
+    public String generateFullID(String vendorName, String kategoriName) {
+        String vendorID = getVendorID(vendorName);
+        String kategoriID = getKategoriID(kategoriName);
+        String autoID = generateAutoID(); // Generate ID baru untuk penambahan barang
+        return vendorID + kategoriID + autoID;
+    }
 
+    public ResultSet tampilComBoxBarang() {
+        query = "SELECT nama_barang FROM barang";
+        try {
+            st = konek.createStatement();
+            rs = st.executeQuery(query);
+        } catch (SQLException sQLException) {
+            JOptionPane.showMessageDialog(null, "Data Gagal Tampil");
+        }
+        return rs;
+    }
     
+     public ResultSet KonversiBarang() {
+        query = "SELECT id_barang FROM barang WHERE nama_barang = ?";
+        try {
+            ps = konek.prepareStatement(query);
+            ps.setString(1, nama_barang);
+
+            rs = ps.executeQuery();
+            System.out.println("data masuk");
+        } catch (SQLException sQLException) {
+            System.out.println("data tak masuk");
+        }
+        return rs;
+    }
 
 }

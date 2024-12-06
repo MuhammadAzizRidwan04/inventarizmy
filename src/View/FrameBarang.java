@@ -151,37 +151,37 @@ public class FrameBarang extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
+        jLabel1.setText("ID Barang");
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("ID Barang");
 
+        jLabel2.setText("Nama Barang");
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Nama Barang");
 
+        jLabel3.setText("Merk");
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Merk");
 
+        jLabel4.setText("Vendor");
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Vendor");
 
+        jLabel5.setText("Kategori");
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Kategori");
 
+        jLabel6.setText("Status");
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Status");
 
+        jLabel7.setText("Jenis");
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Jenis");
 
+        jLabel8.setText("Jumlah");
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Jumlah");
 
         cbVendor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,32 +218,32 @@ public class FrameBarang extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblBarang);
 
-        btnTambah.setBackground(new java.awt.Color(255, 255, 51));
         btnTambah.setText("TAMBAH");
+        btnTambah.setBackground(new java.awt.Color(255, 255, 51));
         btnTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTambahActionPerformed(evt);
             }
         });
 
-        btnUbah.setBackground(new java.awt.Color(153, 153, 255));
         btnUbah.setText("UBAH");
+        btnUbah.setBackground(new java.awt.Color(153, 153, 255));
         btnUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUbahActionPerformed(evt);
             }
         });
 
-        btnHapus.setBackground(new java.awt.Color(153, 153, 0));
         btnHapus.setText("HAPUS");
+        btnHapus.setBackground(new java.awt.Color(153, 153, 0));
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHapusActionPerformed(evt);
             }
         });
 
-        btnExcel.setBackground(new java.awt.Color(255, 102, 102));
         btnExcel.setText("Export to Excel");
+        btnExcel.setBackground(new java.awt.Color(255, 102, 102));
         btnExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcelActionPerformed(evt);
@@ -300,10 +300,12 @@ public class FrameBarang extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtIDBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -341,7 +343,7 @@ public class FrameBarang extends javax.swing.JPanel {
                             .addComponent(btnTambah, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnExcel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         add(jPanel1, "card2");
@@ -414,15 +416,7 @@ public class FrameBarang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUbahActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-//        try {
-//            Barang brg = new Barang();
-//            brg.setId_barang(txtIDBarang.getText());
-//            brg.hapusBarang();
-//        } catch (SQLException sQLException) {
-//        }
-//
-//        reset();
-//        loadTable();
+
         try {
             Barang brg = new Barang();
             brg.setId_barang(txtIDBarang.getText()); // ID yang berasal dari tabel
