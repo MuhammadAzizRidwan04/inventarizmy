@@ -148,6 +148,23 @@ public class Kategori {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+    public ResultSet cariKategori(String keyword) {
+    query = "SELECT * FROM kategori WHERE "
+          + "id_kategori LIKE ? OR "
+          + "nama_kategori LIKE ?";
+          
+    try {
+        ps = konek.prepareStatement(query);
+        for (int i = 1; i <= 2; i++) {
+            ps.setString(i, "%" + keyword + "%"); // Wildcard pencarian untuk semua kolom
+        }
+        rs = ps.executeQuery();
+    } catch (SQLException sQLException) {
+        JOptionPane.showMessageDialog(null, "Data Gagal Dicari: " + sQLException.getMessage());
+    }
+    return rs;
+}
+    
    
 
     

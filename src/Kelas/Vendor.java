@@ -190,8 +190,24 @@ public class Vendor {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-  
-
-
+    public ResultSet cariVendor(String keyword) {
+        query = "SELECT * FROM vendor WHERE "
+                + "id_vendor LIKE ? OR "
+                + "nama_vendor LIKE ? OR "
+                + "alamat LIKE ? OR "
+                + "nama_cp LIKE ? OR "
+                + "no_tlp LIKE ? OR "
+                + "email LIKE ?";
+        try {
+            ps = konek.prepareStatement(query);
+            for (int i = 1; i <= 6; i++) {
+                ps.setString(i, "%" + keyword + "%"); // Wildcard pencarian untuk semua kolom
+            }
+            rs = ps.executeQuery();
+        } catch (SQLException sQLException) {
+            JOptionPane.showMessageDialog(null, "Data Gagal Dicari: " + sQLException.getMessage());
+        }
+        return rs;
+    }
 
 }

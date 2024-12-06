@@ -31,7 +31,7 @@ public class Main extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         pKegori = new javax.swing.JPanel();
         bKategori = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        ITM = new javax.swing.JLabel();
         pVendor = new javax.swing.JPanel();
         bVendor = new javax.swing.JLabel();
         pDataBarang = new javax.swing.JPanel();
@@ -41,17 +41,19 @@ public class Main extends javax.swing.JFrame {
         pPeminjam = new javax.swing.JPanel();
         bPeminjam = new javax.swing.JLabel();
         pConten = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
 
-        jPanel2.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
+        jPanel2.setBackground(new java.awt.Color(0, 255, 0));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         pKegori.setBackground(new java.awt.Color(255, 255, 255));
 
         bKategori.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        bKategori.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         bKategori.setText("KATEGORI");
         bKategori.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -82,13 +84,14 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
-        jLabel1.setText("INVENTARIS ITM");
+        ITM.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        ITM.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
+        ITM.setText("INVENTARIS ITM");
 
         pVendor.setBackground(new java.awt.Color(255, 255, 255));
 
         bVendor.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        bVendor.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         bVendor.setText("VENDOR");
         bVendor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -122,6 +125,7 @@ public class Main extends javax.swing.JFrame {
         pDataBarang.setBackground(new java.awt.Color(255, 255, 255));
 
         bDataBarang.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        bDataBarang.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         bDataBarang.setText("DATA BARANG");
         bDataBarang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -155,6 +159,7 @@ public class Main extends javax.swing.JFrame {
         pPeminjaman.setBackground(new java.awt.Color(255, 255, 255));
 
         bPeminjaman.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        bPeminjaman.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         bPeminjaman.setText("PEMINJAMAN");
         bPeminjaman.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -188,6 +193,7 @@ public class Main extends javax.swing.JFrame {
         pPeminjam.setBackground(new java.awt.Color(255, 255, 255));
 
         bPeminjam.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        bPeminjam.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         bPeminjam.setText("PEMINJAM");
         bPeminjam.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -224,7 +230,7 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel1)
+                .addComponent(ITM)
                 .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -237,14 +243,14 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(pVendor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(pVendor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(ITM)
                 .addGap(106, 106, 106)
                 .addComponent(pKegori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
@@ -261,8 +267,14 @@ public class Main extends javax.swing.JFrame {
                     .addContainerGap(375, Short.MAX_VALUE)))
         );
 
-        pConten.setBackground(new java.awt.Color(0, 153, 153));
+        pConten.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         pConten.setLayout(new java.awt.BorderLayout());
+
+        jLabel3.setFont(new java.awt.Font("Sitka Banner", 3, 60)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("MY INVENTARIZM");
+        pConten.add(jLabel3, java.awt.BorderLayout.PAGE_START);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -272,7 +284,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pConten, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
+                .addComponent(pConten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -292,6 +304,7 @@ public class Main extends javax.swing.JFrame {
 
     private void bVendorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bVendorMouseEntered
         pVendor.setBackground(new Color(245, 245, 245));
+        
     }//GEN-LAST:event_bVendorMouseEntered
 
     private void bVendorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bVendorMouseExited
@@ -392,12 +405,13 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ITM;
     private javax.swing.JLabel bDataBarang;
     private javax.swing.JLabel bKategori;
     private javax.swing.JLabel bPeminjam;
     private javax.swing.JLabel bPeminjaman;
     private javax.swing.JLabel bVendor;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel pConten;

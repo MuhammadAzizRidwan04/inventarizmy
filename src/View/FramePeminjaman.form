@@ -19,7 +19,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="0" type="rgb"/>
+          <Color blue="d6" green="9f" id="Actions.Blue" palette="3" red="38" type="palette"/>
         </Property>
       </Properties>
       <Constraints>
@@ -33,24 +33,37 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="116" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="cbBarang" alignment="0" min="-2" pref="273" max="-2" attributes="0"/>
-                      <Component id="txtJumlah" max="32767" attributes="0"/>
-                      <Component id="cbPeminjam" max="32767" attributes="0"/>
-                      <Component id="cbStatus" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtIDPeminjaman" alignment="0" max="32767" attributes="0"/>
-                      <Component id="dateTimePickerPinjam" max="32767" attributes="0"/>
-                      <Component id="dateTimePickerKembali" alignment="0" min="-2" pref="273" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="btnTambah" min="-2" pref="85" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnUbah" min="-2" pref="95" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btnHapus" min="-2" pref="96" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jButton3" min="-2" pref="107" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="116" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="cbBarang" alignment="0" min="-2" pref="273" max="-2" attributes="0"/>
+                              <Component id="txtJumlah" max="32767" attributes="0"/>
+                              <Component id="cbPeminjam" max="32767" attributes="0"/>
+                              <Component id="cbStatus" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtIDPeminjaman" alignment="0" max="32767" attributes="0"/>
+                              <Component id="dateTimePickerPinjam" max="32767" attributes="0"/>
+                              <Component id="dateTimePickerKembali" alignment="0" min="-2" pref="273" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
@@ -62,17 +75,6 @@
                       <Component id="jScrollPane1" alignment="1" min="-2" pref="597" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnTambah" min="-2" pref="85" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Component id="btnUbah" min="-2" pref="95" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnHapus" min="-2" pref="96" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" pref="107" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -134,9 +136,9 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jButton3" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
-                              <Component id="btnHapus" alignment="3" min="-2" pref="52" max="-2" attributes="0"/>
-                              <Component id="btnUbah" alignment="3" min="-2" pref="52" max="-2" attributes="0"/>
-                              <Component id="btnTambah" alignment="3" min="-2" pref="52" max="-2" attributes="0"/>
+                              <Component id="btnHapus" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
+                              <Component id="btnUbah" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
+                              <Component id="btnTambah" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -163,6 +165,12 @@
                     <Column editable="true" title="Title 4" type="java.lang.Object"/>
                   </Table>
                 </Property>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="99" red="0" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblPeminjamanMouseClicked"/>
@@ -175,6 +183,9 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="ff" red="ff" type="rgb"/>
+            </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -185,12 +196,20 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="ff" red="ff" type="rgb"/>
+            </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtJumlah">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbStatus">
           <Properties>
@@ -200,6 +219,9 @@
                 <StringItem index="1" value="Dikembalikan"/>
                 <StringItem index="2" value=" "/>
               </StringArray>
+            </Property>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="ff" red="ff" type="rgb"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -340,8 +362,18 @@
         <Component class="javax.swing.JTextField" name="txtIDPeminjaman">
         </Component>
         <Component class="com.github.lgooddatepicker.components.DateTimePicker" name="dateTimePickerPinjam">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="com.github.lgooddatepicker.components.DateTimePicker" name="dateTimePickerKembali">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
