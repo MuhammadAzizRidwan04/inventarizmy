@@ -273,7 +273,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtAlamat">
           <Properties>
-            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="ff" red="ff" type="rgb"/>
             </Property>

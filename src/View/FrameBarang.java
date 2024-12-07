@@ -25,6 +25,12 @@ public class FrameBarang extends javax.swing.JPanel {
         comboBoxkategori();
         AutoCompleteDecorator.decorate(cbVendor);
         AutoCompleteDecorator.decorate(cbKategori);
+        txtcaribarang.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                String keyword = txtcaribarang.getText().trim(); // Ambil teks pencarian
+                cariBarang(keyword); // Panggil metode pencarian
+            }
+        });
 
     }
 
@@ -108,6 +114,41 @@ public class FrameBarang extends javax.swing.JPanel {
         }
 
     }
+    
+    void cariBarang(String keyword) {
+    DefaultTableModel model = new DefaultTableModel();
+    model.addColumn("ID Barang");
+    model.addColumn("Nama Barang");
+    model.addColumn("Merk");
+    model.addColumn("Vendor");
+    model.addColumn("Kategori");
+    model.addColumn("Status");
+    model.addColumn("Jenis");
+    model.addColumn("Jumlah");
+
+    try {
+        Barang brg = new Barang(); // Instansiasi kelas Barang
+        ResultSet data = brg.cariBarang(keyword); // Panggil metode dari kelas Barang
+
+        while (data.next()) {
+            model.addRow(new Object[]{
+                data.getString("id_barang"),          // ID Barang
+                data.getString("nama_barang"),       // Nama Barang
+                data.getString("merk"),              // Merk
+                data.getString("id_vendor"),         // Vendor (Bisa gunakan join untuk nama)
+                data.getString("id_kategori"),       // Kategori (Bisa gunakan join untuk nama)
+                data.getString("status"),            // Status
+                data.getString("jenis"),             // Jenis
+                data.getInt("jumlah")                // Jumlah
+            });
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    }
+
+    tblBarang.setModel(model); // Set hasil pencarian ke tabel
+}
+
 
 //    void autoID() {
 //        try {
@@ -146,7 +187,7 @@ public class FrameBarang extends javax.swing.JPanel {
         btnUbah = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
         btnExcel = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtcaribarang = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
 
         setLayout(new java.awt.CardLayout());
@@ -318,7 +359,7 @@ public class FrameBarang extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtcaribarang, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -331,7 +372,7 @@ public class FrameBarang extends javax.swing.JPanel {
                         .addComponent(jLabel9))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtcaribarang, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -496,7 +537,10 @@ public class FrameBarang extends javax.swing.JPanel {
 
             // Set data ke form
             txtIDBarang.setText(ID);
-            txtIDBarang.setEditable(true);
+            txtIDBarang.setEditable(false);
+
+            txtIDBarang.setVisible(true);
+            txtIDBarang.setVisible(true);
             txtNamaBarang.setText(NamaBarang);
             txtMerk.setText(Merk);
             cbVendor.setSelectedItem(Vendor);
@@ -609,11 +653,11 @@ public class FrameBarang extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblBarang;
     private javax.swing.JTextField txtIDBarang;
     private javax.swing.JTextField txtJumlah;
     private javax.swing.JTextField txtMerk;
     private javax.swing.JTextField txtNamaBarang;
+    private javax.swing.JTextField txtcaribarang;
     // End of variables declaration//GEN-END:variables
 }

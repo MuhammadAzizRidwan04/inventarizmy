@@ -132,39 +132,20 @@ public class Barang {
         return rs;
     }
 
-//    public void hapusBarang() {
-//        query = "DELETE FROM barang WHERE id_barang = ?";
-//        try {
-//            ps = konek.prepareStatement(query);
-//            ps.setString(1, id_barang);
-//
-//            ps.executeUpdate();
-//            ps.close();
-//            JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
-//        } catch (SQLException sQLException) {
-//            JOptionPane.showMessageDialog(null, "Data Gagal Dihapus");
-//        }
-//    }
     public void hapusBarang() {
         query = "DELETE FROM barang WHERE id_barang = ?";
         try {
-            System.out.println("ID Barang yang akan dihapus: " + id_barang); // Debug ID Barang
-
             ps = konek.prepareStatement(query);
             ps.setString(1, id_barang);
 
-            int rowsAffected = ps.executeUpdate();
+            ps.executeUpdate();
             ps.close();
-
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
-            } else {
-                JOptionPane.showMessageDialog(null, "Data tidak ditemukan atau gagal dihapus");
-            }
+            //JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
         } catch (SQLException sQLException) {
-            JOptionPane.showMessageDialog(null, "Data Gagal Dihapus: " + sQLException.getMessage());
+            JOptionPane.showMessageDialog(null, "Data Gagal Dihapus");
         }
     }
+
 
     public void ubahBarang() {
 
@@ -199,25 +180,7 @@ public class Barang {
 
     }
 
-//    public String autoID() {
-//        String newID = "IDBR0001"; // Default jika tidak ada data
-//        query = "SELECT id_barang AS ID FROM barang ORDER BY id_barang DESC LIMIT 1";
-//        try {
-//            st = konek.createStatement();
-//            rs = st.executeQuery(query);
-//            if (rs.next()) {
-//                String lastID = rs.getString("ID");
-//                if (lastID != null && lastID.startsWith("IDBR")) {
-//                    int num = Integer.parseInt(lastID.substring(4)); // Ambil angka dari ID terakhir
-//                    num++; // Increment angka
-//                    newID = String.format("IDBR%04d", num); // Format ke KTBR000X
-//                }
-//            }
-//        } catch (SQLException sQLException) {
-//            JOptionPane.showMessageDialog(null, "Data Gagal Tampil: " + sQLException.getMessage());
-//        }
-//        return newID;
-//    }
+
     public String getVendorID(String vendorName) {
         String vendorID = "";
         query = "SELECT id_vendor FROM vendor WHERE nama_vendor = ?";
@@ -278,16 +241,18 @@ public class Barang {
         return vendorID + kategoriID + autoID;
     }
 
+
     public ResultSet tampilComBoxBarang() {
-        query = "SELECT nama_barang FROM barang";
-        try {
-            st = konek.createStatement();
-            rs = st.executeQuery(query);
-        } catch (SQLException sQLException) {
-            JOptionPane.showMessageDialog(null, "Data Gagal Tampil");
-        }
-        return rs;
+    query = "SELECT nama_barang FROM barang WHERE jenis = 'Boleh Dipinjam'";
+    try {
+        st = konek.createStatement();
+        rs = st.executeQuery(query);
+    } catch (SQLException sQLException) {
+        JOptionPane.showMessageDialog(null, "Data Gagal Tampil: " + sQLException.getMessage());
     }
+    return rs;
+}
+
     
      public ResultSet KonversiBarang() {
         query = "SELECT id_barang FROM barang WHERE nama_barang = ?";
@@ -302,5 +267,66 @@ public class Barang {
         }
         return rs;
     }
+     
+    public int getStokBarang(String namaBarang) throws SQLException {
+    query = "SELECT jumlah FROM barang WHERE nama_barang = ?";
+    int stok = 0;
+
+    try {
+        ps = konek.prepareStatement(query);
+        ps.setString(1, namaBarang);
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            stok = rs.getInt("jumlah");
+        }
+    } finally {
+        if (rs != null) rs.close();
+        if (ps != null) ps.close();
+    }
+    return stok;
+}
+    
+    public void kembalikanStok(String namaBarang, int jumlah) throws SQLException {
+    query = "UPDATE barang SET jumlah = jumlah + ? WHERE nama_barang = ?";
+    try {
+        ps = konek.prepareStatement(query);
+        ps.setInt(1, jumlah);
+        ps.setString(2, namaBarang);
+        ps.executeUpdate();
+    } finally {
+        if (ps != null) ps.close();
+    }
+}
+
+    public ResultSet cariBarang(String keyword) {
+    query = "SELECT * FROM barang WHERE "
+            + "id_barang LIKE ? OR "
+            + "nama_barang LIKE ? OR "
+            + "merk LIKE ? OR "
+            + "status LIKE ? OR "
+            + "jenis LIKE ?";
+
+    try {
+        ps = konek.prepareStatement(query);
+
+        // Tambahkan wildcard untuk semua kolom
+        for (int i = 1; i <= 5; i++) {
+            ps.setString(i, "%" + keyword + "%");
+        }
+
+        rs = ps.executeQuery();
+    } catch (SQLException sQLException) {
+        JOptionPane.showMessageDialog(null, "Data Gagal Dicari: " + sQLException.getMessage());
+    }
+    return rs;
+}
+
+
+
+
+
+
+
 
 }

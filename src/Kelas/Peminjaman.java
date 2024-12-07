@@ -96,6 +96,7 @@ public class Peminjaman {
 
             ps.executeUpdate();
             ps.close();
+            kurangiStokBarang();
             JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
         } catch (SQLException sQLException) {
             JOptionPane.showMessageDialog(null, "Data Gagal  Ditambahkan");
@@ -190,5 +191,35 @@ public class Peminjaman {
         }
         return newID;
     }
+    
+    public void kurangiStokBarang() {
+    query = "UPDATE barang SET jumlah = jumlah - ? WHERE id_barang = ?";
+    try {
+        ps = konek.prepareStatement(query);
+        ps.setInt(1, jumlah); // jumlah yang dipinjam
+        ps.setString(2, id_barang); // id barang
+        ps.executeUpdate();
+        ps.close();
+    } catch (SQLException sQLException) {
+        JOptionPane.showMessageDialog(null, "Gagal mengurangi stok barang: " + sQLException.getMessage());
+    }
+}
+ 
+    public void ubahStatusPeminjaman(String idPeminjaman, String status) throws SQLException {
+    query = "UPDATE peminjaman SET status = ? WHERE id_peminjaman = ?";
+    try {
+        ps = konek.prepareStatement(query);
+        ps.setString(1, status);
+        ps.setString(2, idPeminjaman);
+        ps.executeUpdate();
+    } finally {
+        if (ps != null) ps.close();
+    }
+}
+
+
+
+
+
 
 }

@@ -2,6 +2,7 @@ package View;
 
 import Kelas.Barang;
 import Kelas.Peminjaman;
+import Kelas.Koneksi;
 
 import Kelas.Peminjam;
 
@@ -28,14 +29,20 @@ public class FramePeminjaman extends javax.swing.JPanel {
         AutoCompleteDecorator.decorate(cbPeminjam);
         AutoCompleteDecorator.decorate(cbBarang);
         AutoCompleteDecorator.decorate(cbStatus);
-        dateTimePickerKembali.setDateTimePermissive(LocalDateTime.now());
+        //dateTimePickerKembali.setDateTimePermissive(LocalDateTime.now());
         dateTimePickerPinjam.setDateTimePermissive(LocalDateTime.now());
 
     }
-    private DateTimePicker datepickerKembali;
+     
+
+    private int getSelectedBarangId() {
+        return Integer.parseInt(cbBarang.getSelectedItem().toString().split(" - ")[0]); 
+    }
+    //private DateTimePicker datepickerKembali;
     private DateTimePicker datepickerPinjam;
 
     void loadTable() {
+        
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID_Peminjaman");
         model.addColumn("Peminjam");
@@ -143,7 +150,7 @@ public class FramePeminjaman extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         btnTambah = new javax.swing.JButton();
         btnUbah = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnKembalikan = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -225,8 +232,13 @@ public class FramePeminjaman extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText("Kembalikan");
-        jButton3.setBackground(new java.awt.Color(255, 102, 102));
+        btnKembalikan.setText("Kembalikan");
+        btnKembalikan.setBackground(new java.awt.Color(255, 102, 102));
+        btnKembalikan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKembalikanActionPerformed(evt);
+            }
+        });
 
         btnHapus.setText("Hapus");
         btnHapus.setBackground(new java.awt.Color(153, 153, 0));
@@ -255,15 +267,15 @@ public class FramePeminjaman extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(30, 30, 30)
                         .addComponent(btnUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnKembalikan, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
@@ -272,74 +284,75 @@ public class FramePeminjaman extends javax.swing.JPanel {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbPeminjam, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIDPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtJumlah)
-                            .addComponent(cbPeminjam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtIDPeminjaman)
-                            .addComponent(dateTimePickerPinjam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateTimePickerPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dateTimePickerKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 406, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addGap(23, 23, 23)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
                 .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(txtIDPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbPeminjam, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(cbBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel5)
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(dateTimePickerPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(dateTimePickerKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(24, 24, 24)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel7)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(403, 403, 403)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnKembalikan, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(54, 54, 54)
+                                    .addComponent(jLabel8)
+                                    .addGap(33, 33, 33))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(txtIDPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cbPeminjam, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(cbBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(22, 22, 22)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(16, 16, 16)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(17, 17, 17)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel5)
+                                .addComponent(dateTimePickerPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(11, 11, 11)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel6)
+                                .addComponent(dateTimePickerKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -347,67 +360,211 @@ public class FramePeminjaman extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        try {
-            Peminjaman pm = new Peminjaman();
-            Peminjam p = new Peminjam();
-            Barang brg = new Barang();
-            pm.setId_peminjaman(txtIDPeminjaman.getText());
-            p.setNama(cbPeminjam.getSelectedItem().toString());
-            brg.setNama_barang(cbBarang.getSelectedItem().toString());
-            pm.setStatus(cbStatus.getSelectedItem().toString());
-            pm.setJumlah(Integer.parseInt(txtJumlah.getText()));
-            pm.setTanggal_pinjam(dateTimePickerPinjam.getDateTimePermissive()); // Ambil LocalDateTime
-            pm.setTanggal_kembali(dateTimePickerKembali.getDateTimePermissive()); // Ambil LocalDateTime
+//        try {
+//            Peminjaman pm = new Peminjaman();
+//            Peminjam p = new Peminjam();
+//            Barang brg = new Barang();
+//            pm.setId_peminjaman(txtIDPeminjaman.getText());
+//            p.setNama(cbPeminjam.getSelectedItem().toString());
+//            brg.setNama_barang(cbBarang.getSelectedItem().toString());
+//            pm.setStatus(cbStatus.getSelectedItem().toString());
+//            pm.setJumlah(Integer.parseInt(txtJumlah.getText()));
+//            pm.setTanggal_pinjam(dateTimePickerPinjam.getDateTimePermissive()); // Ambil LocalDateTime
+//            pm.setTanggal_kembali(dateTimePickerKembali.getDateTimePermissive()); // Ambil LocalDateTime
+//
+//            ResultSet datapeminjam = p.KonversiPeminjam();
+//            ResultSet databarang = brg.KonversiBarang();
+//
+//            if (datapeminjam.next()) {
+//                String isipeminjam = datapeminjam.getString("id_peminjam");
+//                pm.setId_peminjam(isipeminjam);
+//            }
+//            if (databarang.next()) {
+//                String isibarang = databarang.getString("id_barang");
+//                pm.setId_barang(isibarang);
+//            }
+//            pm.tambahPeminjaman();
+//        } catch (SQLException sQLException) {
+//            System.out.println("data tidak masuk");
+//        }
+//        loadTable();
+//        reset();
 
-            ResultSet datapeminjam = p.KonversiPeminjam();
-            ResultSet databarang = brg.KonversiBarang();
+//try {
+//        // Validasi input
+//        if (cbPeminjam.getSelectedItem() == null || cbBarang.getSelectedItem() == null ||
+//            cbStatus.getSelectedItem() == null || txtJumlah.getText().isEmpty() ||
+//            dateTimePickerPinjam.getDateTimePermissive() == null) {
+//            JOptionPane.showMessageDialog(this, "Semua kolom harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+//            return;
+//        }
+//
+//        Peminjaman pm = new Peminjaman();
+//        Peminjam p = new Peminjam();
+//        Barang brg = new Barang();
+//
+//        // Set data peminjaman
+//        pm.setId_peminjaman(txtIDPeminjaman.getText());
+//        p.setNama(cbPeminjam.getSelectedItem().toString());
+//        brg.setNama_barang(cbBarang.getSelectedItem().toString());
+//        pm.setStatus(cbStatus.getSelectedItem().toString());
+//        pm.setJumlah(Integer.parseInt(txtJumlah.getText()));
+//        pm.setTanggal_pinjam(dateTimePickerPinjam.getDateTimePermissive());
+//        pm.setTanggal_kembali(dateTimePickerKembali.getDateTimePermissive());
+//
+//        // Mendapatkan ID Peminjam dan ID Barang
+//        ResultSet datapeminjam = p.KonversiPeminjam();
+//        ResultSet databarang = brg.KonversiBarang();
+//
+//        if (datapeminjam.next()) {
+//            String isipeminjam = datapeminjam.getString("id_peminjam");
+//            pm.setId_peminjam(isipeminjam);
+//        }
+//        if (databarang.next()) {
+//            String isibarang = databarang.getString("id_barang");
+//            pm.setId_barang(isibarang);
+//        }
+//
+//        // Menambah data peminjaman ke database
+//        pm.tambahPeminjaman();
+//
+//        // Mengupdate tabel dan mereset input
+//        loadTable();
+//        reset();
+//    } catch (SQLException sQLException) {
+//        JOptionPane.showMessageDialog(this, "Data tidak dapat dimasukkan: " + sQLException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//    }
 
-            if (datapeminjam.next()) {
-                String isipeminjam = datapeminjam.getString("id_peminjam");
-                pm.setId_peminjam(isipeminjam);
-            }
-            if (databarang.next()) {
-                String isibarang = databarang.getString("id_barang");
-                pm.setId_barang(isibarang);
-            }
-            pm.tambahPeminjaman();
-        } catch (SQLException sQLException) {
-            System.out.println("data tidak masuk");
+try {
+        // Validasi input
+        if (cbPeminjam.getSelectedItem() == null || cbBarang.getSelectedItem() == null ||
+            cbStatus.getSelectedItem() == null || txtJumlah.getText().isEmpty() ||
+            dateTimePickerPinjam.getDateTimePermissive() == null) {
+            JOptionPane.showMessageDialog(this, "Semua kolom harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
         }
+
+        Peminjaman pm = new Peminjaman();
+        Peminjam p = new Peminjam();
+        Barang brg = new Barang();
+
+        String namaBarang = cbBarang.getSelectedItem().toString();
+        int jumlahPinjam = Integer.parseInt(txtJumlah.getText());
+
+        // Validasi stok barang
+        int stokTersedia = brg.getStokBarang(namaBarang);
+        if (jumlahPinjam > stokTersedia) {
+            JOptionPane.showMessageDialog(this, "Jumlah barang yang dipinjam melebihi stok tersedia!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Set data peminjaman
+        pm.setId_peminjaman(txtIDPeminjaman.getText());
+        p.setNama(cbPeminjam.getSelectedItem().toString());
+        brg.setNama_barang(namaBarang);
+        pm.setStatus(cbStatus.getSelectedItem().toString());
+        pm.setJumlah(jumlahPinjam);
+        pm.setTanggal_pinjam(dateTimePickerPinjam.getDateTimePermissive());
+        pm.setTanggal_kembali(dateTimePickerKembali.getDateTimePermissive());
+
+        // Mendapatkan ID Peminjam dan ID Barang
+        ResultSet datapeminjam = p.KonversiPeminjam();
+        ResultSet databarang = brg.KonversiBarang();
+
+        if (datapeminjam.next()) {
+            String isipeminjam = datapeminjam.getString("id_peminjam");
+            pm.setId_peminjam(isipeminjam);
+        }
+        if (databarang.next()) {
+            String isibarang = databarang.getString("id_barang");
+            pm.setId_barang(isibarang);
+        }
+
+        // Menambah data peminjaman ke database
+        pm.tambahPeminjaman();
+
+        // Mengupdate tabel dan mereset input
         loadTable();
         reset();
+    } catch (SQLException sQLException) {
+        JOptionPane.showMessageDialog(this, "Data tidak dapat dimasukkan: " + sQLException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
-        try {
-            Peminjaman pm = new Peminjaman();
-            Peminjam p = new Peminjam();
-            Barang brg = new Barang();
-            pm.setId_peminjaman(txtIDPeminjaman.getText());
-            p.setNama(cbPeminjam.getSelectedItem().toString());
-            brg.setNama_barang(cbBarang.getSelectedItem().toString());
-            pm.setStatus(cbStatus.getSelectedItem().toString());
-            pm.setJumlah(Integer.parseInt(txtJumlah.getText()));
-            pm.setTanggal_pinjam(dateTimePickerPinjam.getDateTimePermissive()); // Ambil LocalDateTime
-            pm.setTanggal_kembali(dateTimePickerKembali.getDateTimePermissive()); // Ambil LocalDateTime
-
-            ResultSet datapeminjam = p.KonversiPeminjam();
-            ResultSet databarang = brg.KonversiBarang();
-
-            if (datapeminjam.next()) {
-                String isipeminjam = datapeminjam.getString("id_peminjam");
-                pm.setId_peminjam(isipeminjam);
-            }
-            if (databarang.next()) {
-                String isibarang = databarang.getString("id_barang");
-                pm.setId_barang(isibarang);
-            }
-            pm.ubahPeminjaman();
-        } catch (SQLException sQLException) {
-            System.out.println("data tidak masuk");
+//        try {
+//            Peminjaman pm = new Peminjaman();
+//            Peminjam p = new Peminjam();
+//            Barang brg = new Barang();
+//            pm.setId_peminjaman(txtIDPeminjaman.getText());
+//            p.setNama(cbPeminjam.getSelectedItem().toString());
+//            brg.setNama_barang(cbBarang.getSelectedItem().toString());
+//            pm.setStatus(cbStatus.getSelectedItem().toString());
+//            pm.setJumlah(Integer.parseInt(txtJumlah.getText()));
+//            pm.setTanggal_pinjam(dateTimePickerPinjam.getDateTimePermissive()); // Ambil LocalDateTime
+//            pm.setTanggal_kembali(dateTimePickerKembali.getDateTimePermissive()); // Ambil LocalDateTime
+//
+//            ResultSet datapeminjam = p.KonversiPeminjam();
+//            ResultSet databarang = brg.KonversiBarang();
+//
+//            if (datapeminjam.next()) {
+//                String isipeminjam = datapeminjam.getString("id_peminjam");
+//                pm.setId_peminjam(isipeminjam);
+//            }
+//            if (databarang.next()) {
+//                String isibarang = databarang.getString("id_barang");
+//                pm.setId_barang(isibarang);
+//            }
+//            pm.ubahPeminjaman();
+//        } catch (SQLException sQLException) {
+//            System.out.println("data tidak masuk");
+//        }
+//        loadTable();
+//        reset();
+ try {
+        // Validasi input
+        if (cbPeminjam.getSelectedItem() == null || cbBarang.getSelectedItem() == null ||
+            cbStatus.getSelectedItem() == null || txtJumlah.getText().isEmpty() ||
+            dateTimePickerPinjam.getDateTimePermissive() == null) {
+            JOptionPane.showMessageDialog(this, "Semua kolom harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
         }
+
+        Peminjaman pm = new Peminjaman();
+        Peminjam p = new Peminjam();
+        Barang brg = new Barang();
+
+        // Set data peminjaman
+        pm.setId_peminjaman(txtIDPeminjaman.getText());
+        p.setNama(cbPeminjam.getSelectedItem().toString());
+        brg.setNama_barang(cbBarang.getSelectedItem().toString());
+        pm.setStatus(cbStatus.getSelectedItem().toString());
+        pm.setJumlah(Integer.parseInt(txtJumlah.getText()));
+        pm.setTanggal_pinjam(dateTimePickerPinjam.getDateTimePermissive());
+        pm.setTanggal_kembali(dateTimePickerKembali.getDateTimePermissive());
+
+        // Mendapatkan ID Peminjam dan ID Barang
+        ResultSet datapeminjam = p.KonversiPeminjam();
+        ResultSet databarang = brg.KonversiBarang();
+
+        if (datapeminjam.next()) {
+            String isipeminjam = datapeminjam.getString("id_peminjam");
+            pm.setId_peminjam(isipeminjam);
+        }
+        if (databarang.next()) {
+            String isibarang = databarang.getString("id_barang");
+            pm.setId_barang(isibarang);
+        }
+
+        // Mengubah data peminjaman di database
+        pm.ubahPeminjaman();
+
+        // Mengupdate tabel dan mereset input
         loadTable();
         reset();
+    } catch (SQLException sQLException) {
+        JOptionPane.showMessageDialog(this, "Data tidak dapat diubah: " + sQLException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnUbahActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
@@ -422,6 +579,26 @@ public class FramePeminjaman extends javax.swing.JPanel {
         // Reset dan reload tabel setelah hapus
         reset();
         loadTable();
+
+//try {
+//        // Validasi apakah ID peminjaman dipilih
+//        if (txtIDPeminjaman.getText().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Pilih peminjaman yang ingin dihapus!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+//            return;
+//        }
+//
+//        Peminjaman pm = new Peminjaman();
+//        pm.setId_peminjaman(txtIDPeminjaman.getText());
+//
+//        // Menghapus data peminjaman dari database
+//        pm.hapusPeminjaman();
+//
+//        // Mengupdate tabel dan mereset input
+//        loadTable();
+//        reset();
+//    } catch (SQLException sQLException) {
+//        JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + sQLException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//    }
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void tblPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPeminjamanMouseClicked
@@ -437,6 +614,9 @@ public class FramePeminjaman extends javax.swing.JPanel {
 
             txtIDPeminjaman.setText(ID);
             txtIDPeminjaman.setEditable(false);
+
+            txtIDPeminjaman.setVisible(true);
+            txtIDPeminjaman.setVisible(true);
             cbPeminjam.setSelectedItem(Peminjam);
             cbBarang.setSelectedItem(Barang);
             cbStatus.setSelectedItem(Status);
@@ -479,9 +659,41 @@ public class FramePeminjaman extends javax.swing.JPanel {
 
     }//GEN-LAST:event_tblPeminjamanMouseClicked
 
+    private void btnKembalikanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembalikanActionPerformed
+     try {
+         
+        // Ambil data dari form atau tabel
+        String idPeminjaman = txtIDPeminjaman.getText();
+        String namaBarang = cbBarang.getSelectedItem().toString();
+        int jumlah = Integer.parseInt(txtJumlah.getText());
+
+        // Ubah status menjadi "Dikembalikan"
+        Peminjaman pm = new Peminjaman();
+        pm.ubahStatusPeminjaman(idPeminjaman, "Dikembalikan");
+
+        // Kembalikan stok barang
+        Barang brg = new Barang();
+        brg.kembalikanStok(namaBarang, jumlah);
+//                    Peminjaman pm = new Peminjaman();
+            pm.setId_peminjaman(txtIDPeminjaman.getText()); // ID yang berasal dari tabel
+            pm.hapusPeminjaman();
+
+        JOptionPane.showMessageDialog(this, "Barang berhasil dikembalikan!");
+
+    } catch (SQLException ex) {
+        ex.printStackTrace(); // Debugging
+        JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + ex.getMessage());
+    }
+
+    // Refresh tabel dan reset form
+    loadTable();
+    reset();
+    }//GEN-LAST:event_btnKembalikanActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnKembalikan;
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnUbah;
     private javax.swing.JComboBox<String> cbBarang;
@@ -489,7 +701,6 @@ public class FramePeminjaman extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbStatus;
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePickerKembali;
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePickerPinjam;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

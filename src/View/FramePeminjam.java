@@ -161,7 +161,6 @@ public class FramePeminjam extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Alamat");
 
-        txtAlamat.setEditable(false);
         txtAlamat.setBackground(new java.awt.Color(255, 255, 0));
 
         txtNIK.setBackground(new java.awt.Color(255, 255, 0));

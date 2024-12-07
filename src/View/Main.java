@@ -112,7 +112,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(pVendorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(bVendor)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         pVendorLayout.setVerticalGroup(
             pVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,8 +243,8 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(pVendor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(pVendor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +264,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(78, 78, 78)
                     .addComponent(pVendor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(375, Short.MAX_VALUE)))
+                    .addContainerGap(873, Short.MAX_VALUE)))
         );
 
         pConten.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
@@ -380,7 +380,7 @@ public class Main extends javax.swing.JFrame {
         pConten.add(new FramePeminjaman());
         pConten.repaint();
         pConten.revalidate();
-        pPeminjaman.setBackground(new Color(245,245,245));
+        pPeminjaman.setBackground(new Color(173, 216, 230));
     }//GEN-LAST:event_bPeminjamanMousePressed
 
     /**
