@@ -140,7 +140,7 @@ public class Barang {
 
             ps.executeUpdate();
             ps.close();
-            //JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+            JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
         } catch (SQLException sQLException) {
             JOptionPane.showMessageDialog(null, "Data Gagal Dihapus");
         }
@@ -300,18 +300,24 @@ public class Barang {
 }
 
     public ResultSet cariBarang(String keyword) {
-    query = "SELECT * FROM barang WHERE "
-            + "id_barang LIKE ? OR "
-            + "nama_barang LIKE ? OR "
-            + "merk LIKE ? OR "
-            + "status LIKE ? OR "
-            + "jenis LIKE ?";
+    query = "SELECT b.id_barang, b.nama_barang, b.merk, b.status, b.jenis, b.jumlah, " +
+            "v.nama_vendor, k.nama_kategori " +
+            "FROM barang b " +
+            "JOIN vendor v ON b.id_vendor = v.id_vendor " +
+            "JOIN kategori k ON b.id_kategori = k.id_kategori " +
+            "WHERE b.id_barang LIKE ? OR " +
+            "b.nama_barang LIKE ? OR " +
+            "b.merk LIKE ? OR " +
+            "b.status LIKE ? OR " +
+            "b.jenis LIKE ? OR " +
+            "v.nama_vendor LIKE ? OR " +
+            "k.nama_kategori LIKE ?";
 
     try {
         ps = konek.prepareStatement(query);
 
-        // Tambahkan wildcard untuk semua kolom
-        for (int i = 1; i <= 5; i++) {
+        // Mengisi parameter pencarian dengan keyword untuk semua kolom
+        for (int i = 1; i <= 7; i++) {
             ps.setString(i, "%" + keyword + "%");
         }
 
@@ -321,6 +327,7 @@ public class Barang {
     }
     return rs;
 }
+
 
 
 

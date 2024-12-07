@@ -135,7 +135,7 @@ public class Peminjaman {
 
             ps.executeUpdate();
             ps.close();
-            JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+            //JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
         } catch (SQLException sQLException) {
             JOptionPane.showMessageDialog(null, "Data Gagal Dihapus");
         }
@@ -191,35 +191,57 @@ public class Peminjaman {
         }
         return newID;
     }
-    
+
     public void kurangiStokBarang() {
-    query = "UPDATE barang SET jumlah = jumlah - ? WHERE id_barang = ?";
-    try {
-        ps = konek.prepareStatement(query);
-        ps.setInt(1, jumlah); // jumlah yang dipinjam
-        ps.setString(2, id_barang); // id barang
-        ps.executeUpdate();
-        ps.close();
-    } catch (SQLException sQLException) {
-        JOptionPane.showMessageDialog(null, "Gagal mengurangi stok barang: " + sQLException.getMessage());
+        query = "UPDATE barang SET jumlah = jumlah - ? WHERE id_barang = ?";
+        try {
+            ps = konek.prepareStatement(query);
+            ps.setInt(1, jumlah); // jumlah yang dipinjam
+            ps.setString(2, id_barang); // id barang
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException sQLException) {
+            JOptionPane.showMessageDialog(null, "Gagal mengurangi stok barang: " + sQLException.getMessage());
+        }
     }
-}
- 
+
     public void ubahStatusPeminjaman(String idPeminjaman, String status) throws SQLException {
-    query = "UPDATE peminjaman SET status = ? WHERE id_peminjaman = ?";
+        query = "UPDATE peminjaman SET status = ? WHERE id_peminjaman = ?";
+        try {
+            ps = konek.prepareStatement(query);
+            ps.setString(1, status);
+            ps.setString(2, idPeminjaman);
+            ps.executeUpdate();
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+        }
+    }
+
+    public ResultSet cariPeminjaman(String keyword) {
+    query = "SELECT peminjaman.id_peminjaman, peminjam.nama AS nama_peminjam, barang.nama_barang, "
+            + "peminjaman.status, peminjaman.jumlah, peminjaman.tanggal_pinjam, peminjaman.tanggal_kembali "
+            + "FROM peminjaman "
+            + "JOIN peminjam ON peminjaman.id_peminjam = peminjam.id_peminjam "
+            + "JOIN barang ON peminjaman.id_barang = barang.id_barang "
+            + "WHERE peminjaman.id_peminjaman LIKE ? OR "
+            + "peminjam.nama LIKE ? OR "
+            + "barang.nama_barang LIKE ? OR "
+            + "peminjaman.status LIKE ? "
+            + "ORDER BY peminjaman.tanggal_pinjam DESC";
+                
     try {
         ps = konek.prepareStatement(query);
-        ps.setString(1, status);
-        ps.setString(2, idPeminjaman);
-        ps.executeUpdate();
-    } finally {
-        if (ps != null) ps.close();
+        for (int i = 1; i <= 4; i++) {
+            ps.setString(i, "%" + keyword + "%"); // Wildcard pencarian untuk semua kolom
+        }
+        rs = ps.executeQuery();
+    } catch (SQLException sQLException) {
+        JOptionPane.showMessageDialog(null, "Data Gagal Dicari: " + sQLException.getMessage());
     }
+    return rs;
 }
-
-
-
-
 
 
 }

@@ -115,7 +115,8 @@ public class FrameBarang extends javax.swing.JPanel {
 
     }
     
-    void cariBarang(String keyword) {
+    private void cariBarang(String keyword) {
+    // Membuat model untuk JTable
     DefaultTableModel model = new DefaultTableModel();
     model.addColumn("ID Barang");
     model.addColumn("Nama Barang");
@@ -130,24 +131,27 @@ public class FrameBarang extends javax.swing.JPanel {
         Barang brg = new Barang(); // Instansiasi kelas Barang
         ResultSet data = brg.cariBarang(keyword); // Panggil metode dari kelas Barang
 
+        // Memasukkan data ke dalam JTable
         while (data.next()) {
             model.addRow(new Object[]{
                 data.getString("id_barang"),          // ID Barang
-                data.getString("nama_barang"),       // Nama Barang
-                data.getString("merk"),              // Merk
-                data.getString("id_vendor"),         // Vendor (Bisa gunakan join untuk nama)
-                data.getString("id_kategori"),       // Kategori (Bisa gunakan join untuk nama)
-                data.getString("status"),            // Status
-                data.getString("jenis"),             // Jenis
-                data.getInt("jumlah")                // Jumlah
+                data.getString("nama_barang"),        // Nama Barang
+                data.getString("merk"),               // Merk
+                data.getString("nama_vendor"),        // Vendor (dari hasil JOIN)
+                data.getString("nama_kategori"),      // Kategori (dari hasil JOIN)
+                data.getString("status"),             // Status
+                data.getString("jenis"),              // Jenis
+                data.getInt("jumlah")                 // Jumlah
             });
         }
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
     }
 
-    tblBarang.setModel(model); // Set hasil pencarian ke tabel
+    // Menetapkan model ke JTable untuk menampilkan hasil pencarian
+    tblBarang.setModel(model); 
 }
+
 
 
 //    void autoID() {

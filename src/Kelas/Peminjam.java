@@ -187,4 +187,24 @@ public class Peminjam {
         }
         return newID;
     }
+    
+    public ResultSet cariPeminjam(String keyword) {
+        query = "SELECT * FROM peminjam WHERE "
+                + "id_peminjam LIKE ? OR "
+                + "nama LIKE ? OR "
+                + "no_tlp LIKE ? OR "
+                + "instansi LIKE ? OR "
+                + "alamat LIKE ? OR "
+                + "nik LIKE ?";
+        try {
+            ps = konek.prepareStatement(query);
+            for (int i = 1; i <= 6; i++) {
+                ps.setString(i, "%" + keyword + "%"); // Wildcard pencarian untuk semua kolom
+            }
+            rs = ps.executeQuery();
+        } catch (SQLException sQLException) {
+            JOptionPane.showMessageDialog(null, "Data Gagal Dicari: " + sQLException.getMessage());
+        }
+        return rs;
+    }
 }

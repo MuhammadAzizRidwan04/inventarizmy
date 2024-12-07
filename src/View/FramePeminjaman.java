@@ -23,6 +23,12 @@ public class FramePeminjaman extends javax.swing.JPanel {
         initComponents();
         loadTable();
         reset();
+        txtcaripeminjaman.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                String keyword = txtcaripeminjaman.getText().trim(); // Ambil teks pencarian
+                cariPeminjaman(keyword); // Panggil metode pencarian
+            }
+        });
         comboBoxPeminjam();
         comboBoxBarang();
         // Mengaktifkan AutoComplete pada combo box
@@ -130,6 +136,42 @@ public class FramePeminjaman extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error saat membuat ID: " + e.getMessage());
         }
     }
+    
+    private void cariPeminjaman(String keyword) {
+    // Membuat model untuk JTable
+    DefaultTableModel model = new DefaultTableModel();
+    model.addColumn("ID Peminjaman");
+    model.addColumn("Nama Peminjam");
+    model.addColumn("Nama Barang");
+    model.addColumn("Status");
+    model.addColumn("Jumlah");
+    model.addColumn("Tanggal Pinjam");
+    model.addColumn("Tanggal Kembali");
+
+    try {
+        Peminjaman peminjam = new Peminjaman(); // Instansiasi kelas Peminjaman
+        ResultSet data = peminjam.cariPeminjaman(keyword); // Panggil metode dari kelas Peminjaman
+
+        // Memasukkan data ke dalam JTable
+        while (data.next()) {
+            model.addRow(new Object[]{
+                data.getString("id_peminjaman"),          // ID Peminjaman
+                data.getString("nama_peminjam"),          // Nama Peminjam (dari hasil JOIN)
+                data.getString("nama_barang"),            // Nama Barang (dari hasil JOIN)
+                data.getString("status"),                 // Status
+                data.getInt("jumlah"),                    // Jumlah
+                data.getDate("tanggal_pinjam"),           // Tanggal Pinjam
+                data.getDate("tanggal_kembali")           // Tanggal Kembali
+            });
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    }
+
+    // Menetapkan model ke JTable untuk menampilkan hasil pencarian
+    tblPeminjaman.setModel(model); 
+}
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -152,7 +194,7 @@ public class FramePeminjaman extends javax.swing.JPanel {
         btnUbah = new javax.swing.JButton();
         btnKembalikan = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
+        txtcaripeminjaman = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtIDPeminjaman = new javax.swing.JTextField();
@@ -299,7 +341,7 @@ public class FramePeminjaman extends javax.swing.JPanel {
                         .addGap(0, 406, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addGap(23, 23, 23)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtcaripeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1))
                 .addGap(10, 10, 10))
         );
@@ -313,7 +355,7 @@ public class FramePeminjaman extends javax.swing.JPanel {
                             .addGap(24, 24, 24)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel7)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtcaripeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(403, 403, 403)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnKembalikan, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -711,9 +753,9 @@ try {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable tblPeminjaman;
     private javax.swing.JTextField txtIDPeminjaman;
     private javax.swing.JTextField txtJumlah;
+    private javax.swing.JTextField txtcaripeminjaman;
     // End of variables declaration//GEN-END:variables
 }
