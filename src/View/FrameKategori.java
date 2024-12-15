@@ -45,7 +45,7 @@ public class FrameKategori extends javax.swing.JPanel {
 
     void reset() {
         autoID();
-        txtIdKategori.setEditable(false);
+        //txtIdKategori.setEditable(false);
         txtNamaKategori.setText(null);
     }
 
@@ -94,8 +94,7 @@ public class FrameKategori extends javax.swing.JPanel {
         btnHapus = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblKategori = new javax.swing.JTable();
-        jLabel6 = new javax.swing.JLabel();
-        txtIdKategori = new javax.swing.JTextField();
+        txtIdKategori = new javax.swing.JLabel();
         txtcarinamakategori = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
@@ -155,9 +154,9 @@ public class FrameKategori extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblKategori);
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Id Kategori");
+        txtIdKategori.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtIdKategori.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
+        txtIdKategori.setText("Id Kategori");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -178,13 +177,11 @@ public class FrameKategori extends javax.swing.JPanel {
                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel1))
+                        .addComponent(jLabel1)
                         .addGap(33, 33, 33)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNamaKategori)
-                            .addComponent(txtIdKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtIdKategori)
+                            .addComponent(txtNamaKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
@@ -203,15 +200,13 @@ public class FrameKategori extends javax.swing.JPanel {
                     .addComponent(txtcarinamakategori, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtIdKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(24, 24, 24)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNamaKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
+                        .addGap(30, 30, 30)
+                        .addComponent(txtIdKategori)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -273,7 +268,7 @@ public class FrameKategori extends javax.swing.JPanel {
         String namaKategori = tblKategori.getValueAt(baris, 1).toString();
 
         txtIdKategori.setText(idKategori);
-        txtIdKategori.setEditable(false);
+       // txtIdKategori.setEditable(false);
         txtIdKategori.setVisible(true);
         txtIdKategori.setVisible(true);
         txtNamaKategori.setText(namaKategori);
@@ -286,12 +281,11 @@ public class FrameKategori extends javax.swing.JPanel {
     private javax.swing.JButton btnUbah;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblKategori;
-    private javax.swing.JTextField txtIdKategori;
+    private javax.swing.JLabel txtIdKategori;
     private javax.swing.JTextField txtNamaKategori;
     private javax.swing.JTextField txtcarinamakategori;
     // End of variables declaration//GEN-END:variables
